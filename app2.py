@@ -1,4 +1,7 @@
-tasks = []
+from utils import load_tasks, save_tasks
+
+
+tasks = load_tasks()
 
 def mostrar_menu():
     print("\n📝--- To-Do List ---")
@@ -24,6 +27,7 @@ def agregar_tarea():
     while True:
         task = input("Escribe la nueva tarea: ")
         tasks.append({"descripcion": task, "completada": False})
+        save_tasks(tasks)
         print("✅ Tarea agregada.")
 
         print("📭 Ahora, ¿Que quieres hacer?")
@@ -43,6 +47,7 @@ def completar_tarea():
     indice = int(input("Número de tarea completada: ")) - 1
     if 0 <= indice < len(tasks):
         tasks[indice]["completada"] = True
+        save_tasks(tasks)
         print("✅Tarea marcada como completada.")
     else:
         print("Índice inválido.")
@@ -54,6 +59,7 @@ def eliminar_tarea():
             indice = int(input("Número de tarea a eliminar: ")) - 1
             if 0 <= indice < len(tasks):
                 tarea_eliminada = tasks.pop(indice)
+                save_tasks(tasks)
                 print(f"🗑️Tarea {tarea_eliminada} eliminada.")
             else:
                 print("⚠️ El numero de tarea ingresado no existe")
@@ -63,22 +69,29 @@ def eliminar_tarea():
 
 
 # Bucle principal
-while True:
-    mostrar_menu()
-    opcion = input("Elige una opción (1-5): ")
-    
-    if opcion == "1":
-        ver_tareas()
-    elif opcion == "2":
-        agregar_tarea()
-    elif opcion == "3":
-        completar_tarea()
-    elif opcion == "4":
-        eliminar_tarea()
-    elif opcion == "5":
-        print("¡Nos vemos luego!👋")
-        break
-    else:
-        print("❌ Opcion invalida, intenta de nuevo.")
+def main():
+    while True:
+        mostrar_menu()
+        opcion = input("Elige una opción (1-5): ")
+        
+        if opcion == "1":
+            ver_tareas()
+        elif opcion == "2":
+            agregar_tarea()
+        elif opcion == "3":
+            completar_tarea()
+        elif opcion == "4":
+            eliminar_tarea()
+        elif opcion == "5":
+            print("¡Nos vemos luego!👋")
+            break
+        else:
+            print("❌ Opcion invalida, intenta de nuevo.")
+
+
+if __name__ == "__main__":
+    main()
+
+
 
 

@@ -1,4 +1,4 @@
-from task_manager import show_menu
+from app2 import main
 
-if __name__ =="__main__":
-    show_menu()
+if __name__ == "__main__":
+    main()
